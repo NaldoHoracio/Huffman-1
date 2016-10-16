@@ -46,7 +46,7 @@ void put(Hashtable *ht, char key, Node_String* value)
     }
 }
 
-int get(Hashtable *ht, char key)
+char* get(Hashtable *ht, char key)
 {
     int h;
     h = h % SIZE_HASH;
@@ -54,12 +54,12 @@ int get(Hashtable *ht, char key)
     {
         if (ht->table[h]->key == key)
         {
-            return ht->table[h]->value;
+            return (char*) (ht->table[h]->value);
         }
 
         h = (h + 1) % 256;
     }
-    return -100;
+    return (char*) -100;
 }
 
 void Remove(Hashtable *ht, char key)
