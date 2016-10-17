@@ -20,7 +20,7 @@ Hashtable* create_hash_table();
 
 void put(Hashtable *ht, char key, Node_String* value);
 
-int get(Hashtable *ht, char key);
+Node_String* get(Hashtable *ht, char key);
 
 void Remove(Hashtable *ht, char key);
 

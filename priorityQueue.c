@@ -42,7 +42,7 @@ Node* insert(Node *node, unsigned char character, int frequency){ // funçao par
         newNode->p_left = NULL; // setando os ponteiros da arvore para NULL
         newNode->p_right = NULL; // setando os ponteiros da arvore para NULL
         p_aux->Next = newNode;
-        Node_String *newNode_String = (Node_String*) malloc(sizeof(Node_String)); // allocando espaço pra um tipo Node_String
+        Node_String *newNode_String = (Node_String*) malloc(sizeof(Node_String*)); // allocando espaço pra um tipo Node_String
         printf("\nInsert: %c -- Frequency: %d\n", character, frequency);
         return node;
     }

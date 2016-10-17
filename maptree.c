@@ -12,7 +12,7 @@
     Node_String* binary_value = create_linked_list(); //criando a lista encadeada binary_value
 }
 */
-void maptree(Node* current, Node_String* representree, Node_String* binary_value, Hashtable hashtree)	//função recebe um ponteiro e uma string
+void maptree(Node* current, Node_String* representree, Node_String* binary_value, Hashtable* hashtree)	//função recebe um ponteiro e uma string
 {
     if(current-> p_left == NULL && current-> p_right == NULL){ 		//se (o ponteiro aponta pra uma folha)
         if(current->n_character == '*'|| current->n_character == '!'){	//se o caracter for '*' ou '!'
@@ -27,8 +27,8 @@ void maptree(Node* current, Node_String* representree, Node_String* binary_value
         representree = insert_node(representree, '*');
         Node_String* left =insert_node(binary_value, '0');
         Node_String* right =insert_node(binary_value, '1');
-        maptree(current-> p_left, representree, left);	//percorre a árvore a esquerda e add '0'
-        maptree(current-> p_right, representree, right);//percorre a árvore a direita e add '1'
+        maptree(current-> p_left, representree, left, hashtree);	//percorre a árvore a esquerda e add '0'
+        maptree(current-> p_right, representree, right, hashtree);//percorre a árvore a direita e add '1'
     }
 }
 
