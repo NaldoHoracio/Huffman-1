@@ -101,10 +101,30 @@ Node_String* buildList(Node_String *first, char *str) //constroi uma lista a par
     return first;
 }
 
-/*
+Node_String* insert_Node_String(Node_String *first, Node_String *String) //insere uma string no final da lista (string dinamica)
+{
+    Node_String *p=first;
+    Node_String *inserting=String;
+    if(first==NULL) //se a lista estiver vazia
+    {
+        p = inserting;
+    }
+    else
+    {
+        while (p->next_node != NULL) //percorre a lista até encontrar o último elemento
+        {
+            p = p->next_node;
+        }
+        p->next_node = inserting;
+    }
+    return first;
+}
+
+
 int main()//testa as funções
 {
     Node_String* list = create_linked_list();
+    Node_String* lista = create_linked_list();
     int y=0;
     char x;
     char *n;
@@ -113,20 +133,27 @@ int main()//testa as funções
     while( y!=10)
     {
         list = insert_node(list, x);
+        lista = insert_node(lista, x+1);
         puts("Digite outro elemento para adicionar na lista:");
         scanf("%c", &x);
         y++;
     }
     puts("LISTA ENCADEADA");
     print_linked_list(list);
-    puts("Digite o elemento que voce quer buscar: ");
-    scanf("%c", &x);
-    if(search_linked_list(list,x))
+    printf("\n");
+    print_linked_list(lista);
+    printf("\n");
+    list = insert_Node_String(list, lista);
+    print_linked_list(list);
+    printf("\n");
+    //puts("Digite o elemento que voce quer buscar: ");
+    //scanf("%c", &x);
+    /*if(search_linked_list(list,x))
         printf("This element exist it is %c\n",x);
     else
-        printf("Element does not exist.\n");
+        printf("Element does not exist.\n");*/
 
-    printf("size is %d\n", size(list));
+    printf("size is %d\n", size(list));/*
     scanf("%d", &y);
     printf("%c\n", find(list,y));
     n=c_str(list, n);
@@ -138,12 +165,12 @@ int main()//testa as funções
 
     Node_String *f = create_linked_list();
     f=buildList(f, n);
-    print_linked_list(f);
+    print_linked_list(f);*/
 
     free(list);
 
     return 0;
-} */
+}
 //
 // Created by alvino on 01/10/16.
 //

@@ -27,5 +27,7 @@ int size(Node_String *first); //retorna o tamanho da lista (string)
 
 char* c_str(Node_String *first, char *str); //transforma a string dinamica (lista) em um vetor de char
 
+Node_String* insert_Node_String(Node_String *first, Node_String *String); //insere uma string no final da lista (string dinamica)
+
 Node_String* buildList(Node_String *first, char *str);
 #endif //STRING_STRINGLIST_H
