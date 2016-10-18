@@ -33,10 +33,12 @@ void decompress(char * intput)
 int main()
 {
     FILE *file;
+    FILE *output;
+    char num_c[10000];
     char name_file[100];
     long size_file;
     int key;
-    int aux_size, size_trash;// Auxilar para calular tamanho do lixo e var. para tamanho do lixo
+    int aux_size, size_trash, size_tree;// Auxilar para calular tamanho do lixo e var. para tamanho do lixo
     Node_String *str = create_linked_list();
     Node_String *str_codification = create_linked_list();
 
@@ -67,44 +69,67 @@ int main()
                 if (arrayFrequency[i] > 0) {
                     pq = insert(pq, (char) i,
                                 arrayFrequency[i]);  // Inserindo os nós caracteres com sua respectiva frequência
-                    printf("Frequency %d --> %d position\n", arrayFrequency[i], i);    // imprimindo tabela de frequencia
+                    //printf("Frequency %d --> %d position\n", arrayFrequency[i], i);    // imprimindo tabela de frequencia
 
                 }
             }
                     //counter(name_file); // Lê e conta a frequencia
 
-                printPriorityQueue(pq);
+                //printPriorityQueue(pq);
                 Hashtable *hashtree = create_hash_table(); // criando a hash que receberá as chaves e valores das folhas da árvore
                 Node_String *representree = create_linked_list(); // criando a lista encadeada representação da árvore
                 Node_String *binary_value = create_linked_list(); //criando a lista encadeada binary_value
                 pq = buildTree(pq);// Montando a arvore de Huffman
                 representree =  maptreeRepresetantion(pq, representree, binary_value, hashtree);// Mapeando a árvore, criando a codificação e guardando na hash
-                print_linked_list(representree);
+                size_tree = size(representree);
+                //print_linked_list(representree);
                 printf("\n");
-                hashtree = maptreeHashTable(pq, binary_value, hashtree);
+                hashtree = maptreeHashTable(pq, 1, hashtree);
                 file = fopen(name_file, "rb");
-                printf("Hash_tree:\n");
+                //printf("Hash_tree:\n");
                 //print_hash_table(hashtree);
                 printf("\n\n");
-
+                long int num;
                 while ( aux = fgetc(file) )// Lendo cada caractere
                 {
                     if (aux == EOF) break;  //encerrar caso o arquivo esteja no fim
-                    str = get(hashtree, aux);// Get na codificação do caractere na chave
+                    num = getI(hashtree, aux);// Get na codificação do caractere na chave
 
-                    printf("%c -->\n", aux);
-                    print_linked_list(str);
+                    sprintf(num_c, "%ld", num);
+                    str = buildList(NULL, num_c);
+                    str = pop(str);
+                    //printf("%c --> ", aux);
+                    //print_linked_list(str);
 
                     str_codification = insert_Node_String(str_codification, str);// Concatena uma string com a outra a fim de gerar a codificação
-                }
 
-                //TAMANHO DO LIXO E TAMANHO DA ÁRVORE
-                aux_size = size(str_codification);
-                aux_size = size_file % 8;
-                size_trash = 8 - aux_size;
-                printf("Size trash %d\n\n", size_trash);
-                fclose(file);
-            }
+                }
+            fclose(file);
+            output = fopen ("saida.huff","wb");
+            //printf("\n%d\n", size(str_codification));
+            //print_linked_list(str_codification);
+            //TAMANHO DO LIXO E TAMANHO DA ÁRVORE
+            aux_size = size(str_codification);
+            aux_size = aux_size % 8;
+            size_trash = 8 - aux_size;
+            //printf("Size trash %d\n\n", size_trash);
+            str = NULL;
+            str = decToBin(size_trash, str, 2);
+            str = insert_Node_String(str, decToBin(size_tree,NULL, 12));
+            //print_linked_list(str);
+            str = getBits(str);
+            //printf("r=%d", (unsigned char)find(str, 0));
+            fprintf(output, "%c",(unsigned char) find(str, 0));
+            fprintf(output, "%c", (unsigned char) find(str, 1));
+            fprintf(output, "%s", c_str(representree, num_c));
+            str_codification = getBits(str_codification);
+            //print_linked_list(str_codification);
+            fprintf(output, "%s", c_str(str_codification, num_c));
+            char c = find(str_codification, size(str_codification)-1);
+            fprintf(output, "%c", c);
+            fclose(output);
+            //print_linked_list(str);
+        }
 
 
     }

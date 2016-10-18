@@ -74,6 +74,8 @@ int size(Node_String *first) //retorna o tamanho da lista (string)
 
 char* c_str(Node_String *first, char* str) //transforma a string dinamica (lista) em um vetor de char
 {
+    if(first==NULL)
+        return NULL;
     int siz=size(first);
     int i=0;
     Node_String *p;
@@ -90,6 +92,8 @@ char* c_str(Node_String *first, char* str) //transforma a string dinamica (lista
 
 Node_String* buildList(Node_String *first, char *str) //constroi uma lista a partir de um vetor char
 {
+    if(str==NULL)
+        return NULL;
     int size= strlen(str);
     int i;
     for(i=0; i<size; i++) //insere item a item do vetor na lista(string)
@@ -105,7 +109,7 @@ Node_String* insert_Node_String(Node_String *first, Node_String *String) //inser
     Node_String *inserting=String;
     if(first==NULL) //se a lista estiver vazia
     {
-        p = inserting;
+        first = inserting;
     }
     else
     {
@@ -122,12 +126,49 @@ Node_String* removeLast(Node_String* first)
 {
     Node_String* p;
     p = first;
+    if(p->next_node == NULL)
+    {
+        return NULL;
+    }
     while (p->next_node->next_node != NULL) //percorre a lista até encontrar o último elemento
     {
         p = p->next_node;
     }
     p->next_node = NULL;
     return first;
+}
+
+Node_String* pop (Node_String* first)
+{
+    if(first==NULL)
+        return NULL;
+    first = first->next_node;
+    return first;
+}
+
+Node_String* decToBin(int num, Node_String* str, int idx)
+{
+    int i=0, j, aux;
+    char bin[15];
+    char result = (char) num;
+    for(i = idx ; i >=0 ; i--)
+    {
+        aux = num >> i;
+        if(aux & 1)
+        {
+            bin[idx-i]='1' ;
+        }
+        else
+        {
+            bin[idx-i]='0' ;
+        }
+    }
+    for(i=0 ; i <=idx ; i++)
+    {
+        str = insert_node(str, bin[i]);
+
+    }
+    return str;
 }
 
 /*

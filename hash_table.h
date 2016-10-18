@@ -17,7 +17,11 @@ Hashtable* create_hash_table();
 
 Hashtable* put(Hashtable *ht, char key, Node_String* value);
 
+Hashtable* putI(Hashtable *ht, char key, long int value);
+
 Node_String* get(Hashtable *ht, char key);
+
+long int getI(Hashtable *ht, char key);
 
 void Remove(Hashtable *ht, char key);
 

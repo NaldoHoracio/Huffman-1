@@ -35,4 +35,9 @@ Node_String* insert_Node_String(Node_String *first, Node_String *String); //inse
 Node_String* buildList(Node_String *first, char *str);
 
 Node_String* removeLast(Node_String* first);
+
+Node_String* pop (Node_String* first);
+
+Node_String* decToBin(int num, Node_String* str, int idx);
+
 #endif //STRING_STRINGLIST_H

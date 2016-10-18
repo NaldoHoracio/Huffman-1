@@ -18,6 +18,7 @@ struct Node{
     Node *p_left; // ponteiro esquerdo da árvore
     Node *p_right; //ponteiro direito da árvore
     Node_String *p_binary_value; //ponteiro tipo stringList que armazena uma lista de char (valor binario)
+    char* s_binary_value;
 };
 
 Node* createPriorityQueue(); // cria uma fila de prioridade

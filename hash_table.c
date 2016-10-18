@@ -9,6 +9,7 @@ struct element
 {
     char key;
     Node_String* value;
+    long int value_i;
 };
 
 struct hashTable
@@ -49,6 +50,30 @@ Hashtable* put(Hashtable *ht, char key, Node_String* value)
     }
     return ht;
 }
+Hashtable* putI(Hashtable *ht, char key, long int value)
+{
+
+        int h;
+        h = h % SIZE_HASH;
+        while (ht->table[h] != NULL)
+        {
+            if (ht->table[h]->key == key)
+            {
+                ht->table[h]->value_i = value;
+                break;
+            }
+            h = (h + 1) % 256;
+        }
+        if (ht->table[h] == NULL)
+        {
+            Element *new_element = (Element*) malloc(sizeof(Element));
+            new_element->key = key;
+            new_element->value_i = value;
+            ht->table[h] = new_element;
+        }
+        return ht;
+}
+
 
 Node_String* get(Hashtable *ht, char key)
 {
@@ -65,6 +90,23 @@ Node_String* get(Hashtable *ht, char key)
     }
     printf("HashTable  is Empty!\n");
     return NULL;
+}
+
+long int getI(Hashtable *ht, char key)
+{
+    int h=0;
+    h = h % SIZE_HASH;
+    while (ht->table[h] != NULL)
+    {
+        if (ht->table[h]->key == key)
+        {
+            return ht->table[h]->value_i;
+        }
+
+        h = (h + 1) % 256;
+    }
+    printf("HashTable is Empty! \n");
+    return 0;
 }
 
 void Remove(Hashtable *ht, char key)

@@ -7,7 +7,7 @@ Node_String* getBits(Node_String *str)
 {
     int str_size = size(str);
     int cont=1, i;
-    int aux=0;
+    char aux=0;
     Node_String* output = create_linked_list();
     for(i = 0 ; i < str_size ; i++)
     {
@@ -24,6 +24,7 @@ Node_String* getBits(Node_String *str)
         }
         else
         {
+            //printf("\n%d",(unsigned char) aux);
             cont=1;
             output = insert_node(output, aux);
             aux=0;
@@ -31,10 +32,16 @@ Node_String* getBits(Node_String *str)
         }
 
     }
+    output = insert_node(output, aux);
+    //printf("cont = %d\n", cont);
     if(cont!=0)
     {
-        output = insert_node(output, aux<<(8-cont));
+        output = insert_node(output, (char)aux<<(8-cont+1));
     }
+    char p = (char)aux<<(8-cont+1);
+    output = insert_node(output, '0');
+    output = insert_node(output, p+1);
+    //print_linked_list(output);
     return output;
 }
 /*

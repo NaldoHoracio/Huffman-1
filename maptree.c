@@ -34,18 +34,27 @@ Node_String* maptreeRepresetantion(Node* current, Node_String* representree, Nod
     return representree;
 }
 
-Hashtable* maptreeHashTable(Node* current, Node_String* binary_value, Hashtable *hashtree)
+Hashtable* maptreeHashTable(Node* current, long int binary_value, Hashtable *hashtree)
 {
     if(current-> p_left == NULL && current-> p_right == NULL){ 		//se (o ponteiro aponta pra uma folha)
-        hashtree = put(hashtree, current->n_character, binary_value);
+        hashtree = putI(hashtree, current->n_character, binary_value);
+        //printf("valor = %ld\n", getI(hashtree, current->n_character));
         return hashtree;
         //hashtree = put(hashtree, current-> n_character, binary_value);	//coloca na hash a chave(caracter) e valor(binário)
     }
 
     else{							//se não é folha, então é representado por '*' na árvore
-        Node_String* left =insert_node(binary_value, '0');
+
+        //Node_String* left = buildList(left, binary_value);
+        //left = insert_node(left, '0');
+        //char* left_c = c_str(left, left_c);
+        long int left = binary_value * 10;
         hashtree = maptreeHashTable(current-> p_left, left, hashtree);	//percorre a árvore a esquerda e add '0'
-        Node_String* right =insert_node(binary_value, '1');
+
+        //Node_String* right =buildList(right, binary_value);
+        //right = insert_node(right, '1');
+        //char* right_c = c_str(right, right_c);
+        long int right = binary_value * 10 + 1;
         hashtree = maptreeHashTable(current-> p_right, right, hashtree);//percorre a árvore a direita e add '1'
     }
     return hashtree;

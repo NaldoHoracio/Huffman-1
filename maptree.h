@@ -10,6 +10,6 @@
 #include "frequencyCounter.h"
 
 Node_String* maptreeRepresetantion(Node* current, Node_String* representree, Node_String* binary_value, Hashtable *hashtree);
-Hashtable* maptreeHashTable(Node* current, int binary_value, Hashtable *hashtree);
+Hashtable* maptreeHashTable(Node* current, long int binary_value, Hashtable *hashtree);
 
 #endif //STRING_MAPTREE_H
