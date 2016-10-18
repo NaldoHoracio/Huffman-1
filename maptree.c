@@ -60,6 +60,66 @@ Hashtable* maptreeHashTable(Node* current, long int binary_value, Hashtable *has
     return hashtree;
 }
 
+int getTrash(FILE* file)
+{
+
+	fseek(file, 0, SEEK_SET);
+	unsigned char trashSize = getc(file);
+	trashSize = trashSize >> 5 ;
+	return trashSize;
+}
+
+int getSizeTree(FILE* file)
+{
+	fseek(file, 0, SEEK_SET);
+
+	unsigned char first  = getc(file);
+	unsigned char second = getc(file);
+	first = first & 00011111;
+	int size = (first << 8) | second;
+
+return size;
+}
+
+Node_String* getTree_Representation(FILE* file, Node_String* tree, int sizeTree, int sizeName)
+{
+	char c;
+	int i;
+	for( i = 3 + sizeName; i < sizeName + sizeTree + 3 ;  i++)
+	{
+		fseek(file, i, SEEK_SET);
+		c = getc(file);
+		tree = insert_node(tree,c);
+	}
+	return tree;
+}
+
+int sizeBytes(FILE* file)
+{
+	fseek(file, 0, SEEK_END);
+	int size = ftell(file);
+	return size;
+}
+
+int getSizeName(FILE* file)
+{
+	fseek(file, 2, SEEK_SET);
+	unsigned char size = getc(file);
+	return size;
+}
+
+Node_String* getName(FILE* file, Node_String* tree, int sizeName)
+{
+	char c;
+	int i;
+	for( i = 3; i < sizeName + 3 ;  i++)
+	{
+		fseek(file, i, SEEK_SET);
+		c = getc(file);
+		tree = insert_node(tree,c);
+	}
+	return tree;
+}
 
 //
 // Created by alvino on 03/10/16.

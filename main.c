@@ -29,7 +29,45 @@ void decompress(char * intput)
 {
 
 }
-
+/*
+Node * rebuild(char * rep){
+  	//esse construtor atribui char do no root
+    Node root =  new Node((uchar)'*');
+    //Stack stack;
+    Node_String* stack;
+    Node* nodeT ;
+    for (int var = strlen(rep) - 1; var > 0; --var) {
+        char curr = rep[var];
+        if(curr == '*'){
+            if(rep[var-1] == '!' && var){
+                //push(stack, new Node((uchar) curr));
+				nodeT = (Node* ) malloc (sizeof(Node));
+				nodeT->n_character = curr;
+				insert_node(stack, nodeT);
+                --var;
+            } else {
+                Node * right = pop(stack);
+				right = (Node* ) malloc (sizeof(Node));
+				right->n_character = stack.find(stack, 0);
+				stack = pop(stack);
+				
+                Node * left = pop(stack);
+                Node * aux = new Node(left, right);
+                push(stack, aux);
+            }
+        } else if(curr == '!') {
+            push(stack, new Node((uchar)curr));
+          	// pular char verdadeiro pq encontrou marcador
+            --var;
+        } else push(stack, new Node((uchar)curr));
+    }
+    Node * right = pop(stack);
+    Node * left = pop(stack);
+  	// esse construtor atribui filhos de aux
+    root = new Node(left, right);
+    return root;
+}
+*/
 int main()
 {
     FILE *file;
@@ -105,7 +143,10 @@ int main()
 
                 }
             fclose(file);
-            output = fopen ("saida.huff","wb");
+	    printf("Digite o nome do arquivo de saida : (XXX.huff):");
+	    scanf("%s", num_c);
+	    Node_String* StringName = buildList(StringName, name_file);
+            output = fopen (num_c ,"wb");
             //printf("\n%d\n", size(str_codification));
             //print_linked_list(str_codification);
             //TAMANHO DO LIXO E TAMANHO DA ÁRVORE
@@ -121,6 +162,8 @@ int main()
             //printf("r=%d", (unsigned char)find(str, 0));
             fprintf(output, "%c",(unsigned char) find(str, 0));
             fprintf(output, "%c", (unsigned char) find(str, 1));
+	    fprintf(output, "%c", (unsigned char)size(StringName));
+	    fprintf(output, "%s",c_str(StringName, num_c));
             fprintf(output, "%s", c_str(representree, num_c));
             str_codification = getBits(str_codification);
             //print_linked_list(str_codification);
@@ -135,7 +178,74 @@ int main()
     }
     else if(op == 2)// Opção descompressão
     {
+	int sizeTrash;
+	int sizeTotal;
+	int sizeTree;
+	int sizeName;
+	Node_String* tree;
+	Node_String* Name;
         printf("Descompressão\n");
+	FILE* codification ;
+	printf("Digite o nome do arquivo de saida:\n");
+	scanf("%s", name_file);
+	codification =  fopen(name_file, "rb");
+	sizeTotal = sizeBytes(codification);
+	sizeTrash = getTrash(codification);	
+	sizeTree = getSizeTree(codification);
+	sizeName = getSizeName(codification);	
+	tree = getTree_Representation(codification, tree, sizeTree, sizeName);
+	Name = getName(codification, Name, sizeName);	
+	printf("Tamanho total do arquivo:%d\n",sizeTotal);
+	printf("Tamanho total do nome do arquivo:%d\n",sizeName);
+	printf("Nome do arquivo:%s\n",c_str(Name, num_c));
+	printf("Tamanho do lixo = %d\n", sizeTrash);
+	printf("Tamanho da arvore = %d\n", sizeTree);
+	print_linked_list(tree);
+	
+	fseek(codification, sizeTree + 2, SEEK_SET);     //Posiciona o ponteiro na posição inicial da codificação
+	unsigned int bit_current = 0;
+	int j;
+	for(i = 0; i < sizeTotal - sizeTree  - 1; i++)  //Percorre (até antes do byte de lixo) a arvore e decodifica o arquivo
+	{
+		bit_current = getc(codification);
+		for(j = 7; j >= 0; j--)
+		{
+			if(get_bit(bit_current, j))
+			{
+				//root_aux = root_aux->m_right;
+			} 
+			else
+			{
+				//root_aux = root_aux->m_left;
+			}
+			//if(root_aux->m_left==NULL && root_aux->m_right==NULL)
+			//{
+				//fprintf(codification, "%c", root_aux->m_data);
+				//root_aux = root_huff;
+			//}
+		}
+	}
+
+	bit_current = getc(codification);
+	for(j = 7; j >= sizeTrash; j--)
+	{
+		if(get_bit(bit_current, j))
+		{
+			//root_aux = root_aux->m_right;
+		}
+		else
+		{
+			//root_aux = root_aux->m_left;
+		}
+		//if(root_aux->m_left==NULL && root_aux->m_right==NULL)
+		//{
+			//fprintf(codification, "%c", root_aux->m_data);
+			//root_aux = root_huff;
+		//}
+	}
+	
+	fclose(codification);
+	
     }
     else
     {

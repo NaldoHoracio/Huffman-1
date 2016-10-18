@@ -44,6 +44,20 @@ Node_String* getBits(Node_String *str)
     //print_linked_list(output);
     return output;
 }
+
+int get_bit(unsigned char c, int i) // Retorna o bit deposição i no byte c
+{
+	unsigned char mask = 1 << i; 
+	return mask & c;            //  AND logico
+}
+
+
+int set_bit(unsigned char c, int i) // Seta para 1 o bit deposição i no byte c
+{
+	unsigned char mask = 1 << i;
+	return mask | c;           //  OR logico
+}
+
 /*
 int main()
 {
