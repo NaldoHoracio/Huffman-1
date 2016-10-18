@@ -9,6 +9,7 @@
 #include "hash_table.h"
 #include "frequencyCounter.h"
 
-void maptree(Node* current, Node_String* representree, Node_String* binary_value, Hashtable *hashtree);
+Node_String* maptreeRepresetantion(Node* current, Node_String* representree, Node_String* binary_value, Hashtable *hashtree);
+Hashtable* maptreeHashTable(Node* current, int binary_value, Hashtable *hashtree);
 
 #endif //STRING_MAPTREE_H

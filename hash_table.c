@@ -1,5 +1,8 @@
+#include<stdio.h>
+#include<stdlib.h>
 #include "hash_table.h"
 #include "stringList.h"
+
 #define SIZE_HASH 256
 
 struct element
@@ -24,7 +27,7 @@ Hashtable* create_hash_table()
     return ht;
 }
 
-void put(Hashtable *ht, char key, Node_String* value)
+Hashtable* put(Hashtable *ht, char key, Node_String* value)
 {
     int h;
     h = h % SIZE_HASH;
@@ -44,6 +47,7 @@ void put(Hashtable *ht, char key, Node_String* value)
         new_element->value = value;
         ht->table[h] = new_element;
     }
+    return ht;
 }
 
 Node_String* get(Hashtable *ht, char key)
@@ -59,6 +63,7 @@ Node_String* get(Hashtable *ht, char key)
 
         h = (h + 1) % 256;
     }
+    printf("HashTable  is Empty!\n");
     return NULL;
 }
 
@@ -76,6 +81,20 @@ void Remove(Hashtable *ht, char key)
         }
         h = (h+1)%256;
     }
+}
+
+void print_hash_table(Hashtable *ht)
+{
+    int h;
+    h = h%SIZE_HASH;
+    while (ht->table[h] != NULL)
+    {
+        //ht->table[h]->value;
+        printf("%c -->", ht->table[h]->key);
+        print_linked_list(ht->table[h]->value);
+        h = (h+1)%SIZE_HASH;
+    }
+
 }
 /*
 int main()

@@ -5,11 +5,14 @@
 
 #ifndef STRING_STRINGLIST_H
 #define STRING_STRINGLIST_H
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
 
 typedef struct node_string Node_String; // define um nó
+
+struct node_string  // define um nó
+{
+    char item; // contendo um caracter
+    struct node_string *next_node; //um ponteiro pro proximo nó
+};
 
 Node_String* create_linked_list(); //cria uma lista vazia
 
@@ -30,4 +33,6 @@ char* c_str(Node_String *first, char *str); //transforma a string dinamica (list
 Node_String* insert_Node_String(Node_String *first, Node_String *String); //insere uma string no final da lista (string dinamica)
 
 Node_String* buildList(Node_String *first, char *str);
+
+Node_String* removeLast(Node_String* first);
 #endif //STRING_STRINGLIST_H

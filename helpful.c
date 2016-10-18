@@ -16,17 +16,17 @@ void printPreOrder(Node *bt){ //funçao para imprimir a arvore em pre ordem
     }
 }
 
-Node *buildTree(Node *list){ //funcao para converter a lista em árvore, imprimindo o estado atual
+Node* buildTree(Node *list){ //funcao para converter a lista em árvore, imprimindo o estado atual
     /* merge enquanto lista possuir elemento */
     while(list->Next != NULL){
         list = merge(list); //chamando a funçao merge para lista
-        printf("\nEstado atual da lista:\n");
-        printPriorityQueue(list); // imprimindo o estado da lista para cada iteracao
+        //printf("\nEstado atual da lista:\n");
+        //printPriorityQueue(list); // imprimindo o estado da lista para cada iteracao
     }
     return list;
 }
 
-Node *merge(Node* queue){ // funçao de merge nos nós da lista
+Node* merge(Node* queue){ // funçao de merge nos nós da lista
     /* estabelecendo definições para o novo nó criado */
     Node *newNode = (Node*) malloc(sizeof(Node)); //alocando memoria para o node
     newNode->p_left = queue; // recebe o primeiro nó da lista

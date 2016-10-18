@@ -5,10 +5,7 @@
 #ifndef STRING_HASH_TABLE_H
 #define STRING_HASH_TABLE_H
 
-#include<stdio.h>
-#include<stdlib.h>
 #include "stringList.h"
-#define MAX_HASH 5003
 
 typedef struct element Element;
 
@@ -18,7 +15,7 @@ int hash_function(char key);
 
 Hashtable* create_hash_table();
 
-void put(Hashtable *ht, char key, Node_String* value);
+Hashtable* put(Hashtable *ht, char key, Node_String* value);
 
 Node_String* get(Hashtable *ht, char key);
 

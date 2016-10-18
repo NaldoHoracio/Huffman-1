@@ -1,24 +1,26 @@
 //
 // Created by edvonaldoh on 15/10/16.
 //
-#ifndef STRING_HEADER_H
-#define STRING_HEADER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+//#include "header.h"
 #include "frequencyCounter.h"
 #include "frequencyCounter.c"
 #include "hash_table.h"
 #include "hash_table.c"
 #include "helpful.h"
 #include "helpful.c"
-#include "helpful_function.h"
-#include "helpful_function.c"
 #include "maptree.h"
 #include "maptree.c"
 #include "priorityQueue.h"
 #include "priorityQueue.c"
 #include "stringList.h"
 #include "stringList.c"
-
+#include "bitVector.h"
+#include "bitVector.c"
+#include "size_hash_size_trash.h"
 void compress(char * intput, char * output)
 {
 
@@ -32,20 +34,78 @@ int main()
 {
     FILE *file;
     char name_file[100];
-    int op;// Operador para escolher a opcao desejada
-    printf("Digite o que você deseja fazer: ");
+    long size_file;
+    int key;
+    int aux_size, size_trash;// Auxilar para calular tamanho do lixo e var. para tamanho do lixo
+    Node_String *str = create_linked_list();
+    Node_String *str_codification = create_linked_list();
+
+    int i, op;// Operador para escolher a opcao desejada
+    int aux, position;// Auxiliar para verficar arquivo e auxiliar para posição da string de codificação
+    printf("Digite o que você deseja fazer:\n");
     printf("1 - Compressão\n2 - Descompressão\n");
     scanf("%d", &op);
 
     if(op == 1)// Opção compressão
     {
-        counter(name_file); // Lê e conta a frequencia
-        Node *pq = createPriorityQueue();// Criando uma fila
-        Hashtable *ht = create_hash_table();// Criando a hash
-        pq = buildTree(pq);// Montando a arvore de Huffman
-        //Hashtable* hashtree = create_hash_table(); // criando a hash que receberá as chaves e valores das folhas da árvore
-        Node_String* representree = create_linked_list(); // criando a lista encadeada representação da árvore
-        Node_String* binary_value = create_linked_list(); //criando a lista encadeada binary_value
+        printf("Digite o nome do arquivo para fazer compressão:\n");
+        scanf("%s", name_file);// Nome do arquivo
+        file = fopen (name_file,"rb");
+        // Testando se o arquivo existe ou não
+        if (file == NULL) {
+            printf("O arquivo não existe neste diretório.\n");
+        } else {
+                while((aux=fgetc(file))) { //percorre os caracteres do arquivo
+                    if (aux == EOF) break; //encerrar caso o arquivo esteja no fim
+                    arrayFrequency[aux] += 1; //caso contrário adiciona 1 para a contagem daquele caracetere
+                }
+            fclose(file); //fecha o arquivo
+            Node *pq = createPriorityQueue();// Criando uma fila
+            for (i = 0; i < 256; i++)  //percorrendo o array
+            {
+
+                if (arrayFrequency[i] > 0) {
+                    pq = insert(pq, (char) i,
+                                arrayFrequency[i]);  // Inserindo os nós caracteres com sua respectiva frequência
+                    printf("Frequency %d --> %d position\n", arrayFrequency[i], i);    // imprimindo tabela de frequencia
+
+                }
+            }
+                    //counter(name_file); // Lê e conta a frequencia
+
+                printPriorityQueue(pq);
+                Hashtable *hashtree = create_hash_table(); // criando a hash que receberá as chaves e valores das folhas da árvore
+                Node_String *representree = create_linked_list(); // criando a lista encadeada representação da árvore
+                Node_String *binary_value = create_linked_list(); //criando a lista encadeada binary_value
+                pq = buildTree(pq);// Montando a arvore de Huffman
+                representree =  maptreeRepresetantion(pq, representree, binary_value, hashtree);// Mapeando a árvore, criando a codificação e guardando na hash
+                print_linked_list(representree);
+                printf("\n");
+                hashtree = maptreeHashTable(pq, binary_value, hashtree);
+                file = fopen(name_file, "rb");
+                printf("Hash_tree:\n");
+                //print_hash_table(hashtree);
+                printf("\n\n");
+
+                while ( aux = fgetc(file) )// Lendo cada caractere
+                {
+                    if (aux == EOF) break;  //encerrar caso o arquivo esteja no fim
+                    str = get(hashtree, aux);// Get na codificação do caractere na chave
+
+                    printf("%c -->\n", aux);
+                    print_linked_list(str);
+
+                    str_codification = insert_Node_String(str_codification, str);// Concatena uma string com a outra a fim de gerar a codificação
+                }
+
+                //TAMANHO DO LIXO E TAMANHO DA ÁRVORE
+                aux_size = size(str_codification);
+                aux_size = size_file % 8;
+                size_trash = 8 - aux_size;
+                printf("Size trash %d\n\n", size_trash);
+                fclose(file);
+            }
+
 
     }
     else if(op == 2)// Opção descompressão
@@ -56,9 +116,9 @@ int main()
     {
         printf("Opção inválida!\n");
         printf("Digite uma opção válida:\n");
-        printf("1 - Compressão\n2 - Descompressão");
+        printf("1 - Compressão\n2 - Descompressão\n");
+        printf("\n\n");
     }
     return 0;
 }
 
-#endif //STRING_HEADER_H

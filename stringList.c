@@ -1,10 +1,8 @@
 #include "stringList.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 
-struct node_string  // define um nó
-{
-    char item; // contendo um caracter
-    struct node_string *next_node; //um ponteiro pro proximo nó
-};
 Node_String* create_linked_list() //cria uma lista vazia
 {
     return NULL;
@@ -120,7 +118,19 @@ Node_String* insert_Node_String(Node_String *first, Node_String *String) //inser
     return first;
 }
 
+Node_String* removeLast(Node_String* first)
+{
+    Node_String* p;
+    p = first;
+    while (p->next_node->next_node != NULL) //percorre a lista até encontrar o último elemento
+    {
+        p = p->next_node;
+    }
+    p->next_node = NULL;
+    return first;
+}
 
+/*
 int main()//testa as funções
 {
     Node_String* list = create_linked_list();
@@ -138,6 +148,7 @@ int main()//testa as funções
         scanf("%c", &x);
         y++;
     }
+
     puts("LISTA ENCADEADA");
     print_linked_list(list);
     printf("\n");
@@ -151,7 +162,7 @@ int main()//testa as funções
     /*if(search_linked_list(list,x))
         printf("This element exist it is %c\n",x);
     else
-        printf("Element does not exist.\n");*/
+        printf("Element does not exist.\n");
 
     printf("size is %d\n", size(list));/*
     scanf("%d", &y);
@@ -162,16 +173,15 @@ int main()//testa as funções
     {
         printf("%c\n", n[y]);
     }
-
     Node_String *f = create_linked_list();
     f=buildList(f, n);
-    print_linked_list(f);*/
+    print_linked_list(f);
 
     free(list);
 
     return 0;
 }
+*/
 //
 // Created by alvino on 01/10/16.
 //
-

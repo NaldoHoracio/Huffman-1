@@ -3,11 +3,13 @@
 //
 
 #include "frequencyCounter.h"
-
-int arrayFrequency[256] = {0}; //array para guardar a frequencia, tamanho maximo da tabela ascii(256)
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int arrayFrequency[256];
 
 void counter(char *fileName){ //funçao para contar caracteres passando arquivo como parametro
-    FILE *file = fopen(fileName, "r"); //abre arquivo somente para leitura
+    FILE *file = fopen("teste.txt", "rb"); //abre arquivo somente para leitura
     int aux; //auxiliar para guardar o caractere
     if(fileName == NULL) printf("Empty!\n"); //checka se o arquivo está vazio
     else{
@@ -18,7 +20,7 @@ void counter(char *fileName){ //funçao para contar caracteres passando arquivo 
     }
     fclose(file); //fecha o arquivo
 }
-
+/*
 void printFrequency(int array[256]){ //imprime a tabela com a frequencia dos caracteres
     int i; // variavel auxiliar
     for(i=0; i < 256; i++){
@@ -27,3 +29,4 @@ void printFrequency(int array[256]){ //imprime a tabela com a frequencia dos car
         }
     }
 }
+*/

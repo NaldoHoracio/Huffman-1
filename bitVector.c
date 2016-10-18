@@ -33,11 +33,11 @@ Node_String* getBits(Node_String *str)
     }
     if(cont!=0)
     {
-        output = insert_node(output, aux);
+        output = insert_node(output, aux<<(8-cont));
     }
     return output;
 }
-
+/*
 int main()
 {
     int i;
@@ -59,3 +59,4 @@ int main()
     }
 
 }
+ */

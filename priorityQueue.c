@@ -14,7 +14,7 @@ void printPriorityQueue(Node *node){ //imprimindo a fila de prioridade
     if(node == NULL)
         printf("\nEmpty Priority Queue.\n"); // caso a fila esteja vazia, imprime informativo
     for(p_aux = node; p_aux != NULL; p_aux = p_aux->Next){ //percorrendo a lista
-        printf("Character: %c -- Frequency: %d  ---> ", p_aux->n_character, p_aux->n_frequency); //imprimindo o caractere e sua frequencia
+        printf("Character: %c -- Frequency: %d  ---> \n", p_aux->n_character, p_aux->n_frequency); //imprimindo o caractere e sua frequencia
     }
 }
 
@@ -27,7 +27,7 @@ Node* insert(Node *node, unsigned char character, int frequency){ // funçao par
         newNode->p_right = NULL; // setando null no ponteiro da arvore direita
         newNode->Next = node; // apontando newNode pra o primeiro elemento da lista
         Node_String *newNode_String = (Node_String*) malloc(sizeof(Node_String*));// allocando espaço pra um tipo Node_String
-        printf("\nInsert: %c -- Frequency: %d\n", character, frequency); // imprimindo o elemento inserido e sua frequencia
+        //printf("\nInsert: %c -- Frequency: %d\n", character, frequency); // imprimindo o elemento inserido e sua frequencia
         return newNode;
     }
     else{
@@ -43,7 +43,7 @@ Node* insert(Node *node, unsigned char character, int frequency){ // funçao par
         newNode->p_right = NULL; // setando os ponteiros da arvore para NULL
         p_aux->Next = newNode;
         Node_String *newNode_String = (Node_String*) malloc(sizeof(Node_String*)); // allocando espaço pra um tipo Node_String
-        printf("\nInsert: %c -- Frequency: %d\n", character, frequency);
+        //printf("\nInsert: %c -- Frequency: %d\n", character, frequency);
         return node;
     }
 }

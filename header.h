@@ -5,16 +5,21 @@
 #ifndef STRING_HEADER_H
 #define STRING_HEADER_H
 
-#include<stdio.h>
-#include<stdlib.h>
-#include <math.h>
-#include "stringList.h"
-#include "priorityQueue.h"
-#include "hash_table.h"
 #include "frequencyCounter.h"
-#include "maptree.h"
+//#include "frequencyCounter.c"
+#include "hash_table.h"
+//#include "hash_table.c"
 #include "helpful.h"
-#include "helpful_function.h"
+//#include "helpful.c"
+#include "maptree.h"
+//#include "maptree.c"
+#include "priorityQueue.h"
+//#include "priorityQueue.c"
+#include "stringList.h"
+//#include "stringList.c"
+#include "bitVector.h"
+//#include "bitVector.c"
+#include "size_hash_size_trash.h"
 
 
 #endif //STRING_HEADER_H
