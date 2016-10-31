@@ -4,6 +4,7 @@
 
 #include "helpful_function.h"
 
+// Verifica se o bit de posição i do caractere c está setado - tem valor 1
 int is_bit_i_set(unsigned char c, int i)
 {
     unsigned char mask = 1 << i;

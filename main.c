@@ -10,25 +10,20 @@
 #include "frequencyCounter.c"
 #include "hash_table.h"
 #include "hash_table.c"
-#include "helpful.h"
-#include "helpful.c"
+//#include "helpful.h"
+//#include "helpful.c"
 #include "maptree.h"
 #include "maptree.c"
-#include "priorityQueue.h"
-#include "priorityQueue.c"
-#include "stringList.h"
-#include "stringList.c"
+//#include "priorityQueue.h"
+//#include "priorityQueue.c"
+//#include "stringList.h"
+//#include "stringList.c"
 #include "bitVector.h"
 #include "bitVector.c"
 #include "size_hash_size_trash.h"
-void compress(char * intput, char * output)
-{
+#include "rebuildTree.h"
+#include "rebuildTree.c"
 
-}
-void decompress(char * intput)
-{
-
-}
 /*
 Node * rebuild(char * rep){
   	//esse construtor atribui char do no root
@@ -72,11 +67,11 @@ int main()
 {
     FILE *file;
     FILE *output;
-    char num_c[10000];
-    char name_file[100];
-    long size_file;
-    int key;
-    int aux_size, size_trash, size_tree;// Auxilar para calular tamanho do lixo e var. para tamanho do lixo
+    char num_c[10000];// Chavar variável para colocar no arquivo
+    char name_file[100];// Nome do arquivo
+    long size_file; // tamanho do arquivo
+    //int key;
+    int aux_size, size_trash, size_tree;// Auxilar para calcular, tamanho do lixo, e var. para tamanho do lixo
     Node_String *str = create_linked_list();
     Node_String *str_codification = create_linked_list();
 
@@ -88,7 +83,7 @@ int main()
 
     if(op == 1)// Opção compressão
     {
-        printf("Digite o nome do arquivo para fazer compressão:\n");
+        printf("Digite o nome do arquivo que deseja comprimir:\n");
         scanf("%s", name_file);// Nome do arquivo
         file = fopen (name_file,"rb");
         // Testando se o arquivo existe ou não
@@ -107,7 +102,7 @@ int main()
                 if (arrayFrequency[i] > 0) {
                     pq = insert(pq, (char) i,
                                 arrayFrequency[i]);  // Inserindo os nós caracteres com sua respectiva frequência
-                    //printf("Frequency %d --> %d position\n", arrayFrequency[i], i);    // imprimindo tabela de frequencia
+                    //printf("Frequency %d --> %c position\n", arrayFrequency[i], i);    // imprimindo tabela de frequencia
 
                 }
             }
@@ -125,7 +120,7 @@ int main()
                 hashtree = maptreeHashTable(pq, 1, hashtree);
                 file = fopen(name_file, "rb");
                 //printf("Hash_tree:\n");
-                //print_hash_table(hashtree);
+                print_hash_table(hashtree);
                 printf("\n\n");
                 long int num;
                 while ( aux = fgetc(file) )// Lendo cada caractere
@@ -133,9 +128,9 @@ int main()
                     if (aux == EOF) break;  //encerrar caso o arquivo esteja no fim
                     num = getI(hashtree, aux);// Get na codificação do caractere na chave
 
-                    sprintf(num_c, "%ld", num);
-                    str = buildList(NULL, num_c);
-                    str = pop(str);
+                    sprintf(num_c, "%ld", num);// Transforma num em string
+                    str = buildList(NULL, num_c);// String em Node_String
+                    str = pop(str);// Dá pop para tirar o primeiro elemento
                     //printf("%c --> ", aux);
                     //print_linked_list(str);
 
@@ -162,8 +157,8 @@ int main()
             //printf("r=%d", (unsigned char)find(str, 0));
             fprintf(output, "%c",(unsigned char) find(str, 0));
             fprintf(output, "%c", (unsigned char) find(str, 1));
-	    fprintf(output, "%c", (unsigned char)size(StringName));
-	    fprintf(output, "%s",c_str(StringName, num_c));
+	        fprintf(output, "%c", (unsigned char)size(StringName));
+	        fprintf(output, "%s",c_str(StringName, num_c));
             fprintf(output, "%s", c_str(representree, num_c));
             str_codification = getBits(str_codification);
             //print_linked_list(str_codification);
@@ -182,11 +177,12 @@ int main()
 	int sizeTotal;
 	int sizeTree;
 	int sizeName;
-	Node_String* tree;
+	Node_String* tree = create_linked_list();
 	Node_String* Name;
         printf("Descompressão\n");
 	FILE* codification ;
-	printf("Digite o nome do arquivo de saida:\n");
+    FILE* output;
+	printf("Digite o nome do arquivo que deseja descomprimir:\n");
 	scanf("%s", name_file);
 	codification =  fopen(name_file, "rb");
 	sizeTotal = sizeBytes(codification);
@@ -200,48 +196,59 @@ int main()
 	printf("Nome do arquivo:%s\n",c_str(Name, num_c));
 	printf("Tamanho do lixo = %d\n", sizeTrash);
 	printf("Tamanho da arvore = %d\n", sizeTree);
-	print_linked_list(tree);
-	
-	fseek(codification, sizeTree + 2, SEEK_SET);     //Posiciona o ponteiro na posição inicial da codificação
+    printf("Representacao da arvore:");
+    print_linked_list(tree);
+    printf("\n");
+	Node* root = rebuild_tree(tree);
+    //print_linked_list(tree);
+    //printf("root=%c\n", root->n_character);
+    Node* root_aux = root;
+    output = fopen (c_str(Name, num_c), "wb+");
+	fseek(codification, sizeTree +sizeName+ 3, SEEK_SET);     //Posiciona o ponteiro na posição inicial da codificação
 	unsigned int bit_current = 0;
 	int j;
-	for(i = 0; i < sizeTotal - sizeTree  - 1; i++)  //Percorre (até antes do byte de lixo) a arvore e decodifica o arquivo
+	for(i = 0; i < (sizeTotal - sizeTree - sizeName  - 3 - 1); i++)  //Percorre (até antes do byte de lixo) a arvore e decodifica o arquivo
 	{
 		bit_current = getc(codification);
+        //printf("i=%d", i);
 		for(j = 7; j >= 0; j--)
 		{
-			if(get_bit(bit_current, j))
+            // Verifica se o bit de posição i do caractere c está setado - tem valor 1
+            if(get_bit(bit_current, j))
 			{
-				//root_aux = root_aux->m_right;
+				root_aux = root_aux->p_right;
 			} 
 			else
 			{
-				//root_aux = root_aux->m_left;
+				root_aux = root_aux->p_left;
 			}
-			//if(root_aux->m_left==NULL && root_aux->m_right==NULL)
-			//{
-				//fprintf(codification, "%c", root_aux->m_data);
-				//root_aux = root_huff;
-			//}
+			if(root_aux->p_left==NULL && root_aux->p_right==NULL)
+			{
+				fprintf(output, "%c", root_aux->n_character);
+                printf("%c", root_aux->n_character);
+				root_aux = root;
+			}
 		}
 	}
 
 	bit_current = getc(codification);
 	for(j = 7; j >= sizeTrash; j--)
 	{
+
 		if(get_bit(bit_current, j))
 		{
-			//root_aux = root_aux->m_right;
+			root_aux = root_aux->p_right;
 		}
 		else
 		{
-			//root_aux = root_aux->m_left;
+			root_aux = root_aux->p_left;
 		}
-		//if(root_aux->m_left==NULL && root_aux->m_right==NULL)
-		//{
-			//fprintf(codification, "%c", root_aux->m_data);
-			//root_aux = root_huff;
-		//}
+		if(root_aux->p_left==NULL && root_aux->p_right==NULL)
+		{
+			fprintf(output, "%c", root_aux->n_character);
+            //printf("%c", root_aux->n_character);
+			root_aux = root;
+		}
 	}
 	
 	fclose(codification);

@@ -1,7 +1,7 @@
 //
 // Created by alvino on 18/10/16.
 //
-
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include "rebuildTree.h"
@@ -26,7 +26,7 @@ Node* create_node_rebuild_tree(char n_character, Node *p_left, Node *p_right)
 int position=0;
 Node* rebuild_tree(Node_String* representree)
 {
-    printf("%d\n", position);
+    //printf("%d\n", position);
     if(position < size(representree)) {
         if (find(representree, position) == '*') {
             position = position + 1;
@@ -41,7 +41,7 @@ Node* rebuild_tree(Node_String* representree)
     }
     else return NULL;
 }
-
+/*
 int main()
 {
     Node_String* representree = create_linked_list();
@@ -50,7 +50,7 @@ int main()
     char *n;
     puts("Digite os elementos da lista: ");
     scanf("%c", &x);
-    while( y!=8)
+    while( y!=9)
     {
         representree = insert_node(representree, x);
         puts("Digite outro elemento para adicionar na lista:");
@@ -63,3 +63,5 @@ int main()
 
     return 0;
 }
+ */
+

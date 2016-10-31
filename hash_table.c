@@ -105,7 +105,7 @@ long int getI(Hashtable *ht, char key)
 
         h = (h + 1) % 256;
     }
-    printf("HashTable is Empty! \n");
+    printf("HashTable is Empty for key (%c)! \n", key);
     return 0;
 }
 

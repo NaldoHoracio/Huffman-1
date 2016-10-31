@@ -38,7 +38,9 @@ Hashtable* maptreeHashTable(Node* current, long int binary_value, Hashtable *has
 {
     if(current-> p_left == NULL && current-> p_right == NULL){ 		//se (o ponteiro aponta pra uma folha)
         hashtree = putI(hashtree, current->n_character, binary_value);
-        //printf("valor = %ld\n", getI(hashtree, current->n_character));
+        printf("valor = %ld(%c)\n", getI(hashtree, current->n_character), current->n_character);
+        //getI(hashtree, current->n_character);
+
         return hashtree;
         //hashtree = put(hashtree, current-> n_character, binary_value);	//coloca na hash a chave(caracter) e valor(binário)
     }
@@ -48,7 +50,7 @@ Hashtable* maptreeHashTable(Node* current, long int binary_value, Hashtable *has
         //Node_String* left = buildList(left, binary_value);
         //left = insert_node(left, '0');
         //char* left_c = c_str(left, left_c);
-        long int left = binary_value * 10;
+        long int left = binary_value * 10;//
         hashtree = maptreeHashTable(current-> p_left, left, hashtree);	//percorre a árvore a esquerda e add '0'
 
         //Node_String* right =buildList(right, binary_value);

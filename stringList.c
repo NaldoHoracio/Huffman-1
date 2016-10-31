@@ -138,7 +138,7 @@ Node_String* removeLast(Node_String* first)
     return first;
 }
 
-Node_String* pop (Node_String* first)
+Node_String* pop (Node_String* first) // Remover o primeiro nó
 {
     if(first==NULL)
         return NULL;
@@ -146,7 +146,7 @@ Node_String* pop (Node_String* first)
     return first;
 }
 
-Node_String* decToBin(int num, Node_String* str, int idx)
+Node_String* decToBin(int num, Node_String* str, int idx) // decimal to binario
 {
     int i=0, j, aux;
     char bin[15];

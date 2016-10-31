@@ -9,9 +9,9 @@
 int arrayFrequency[256];
 
 void counter(char *fileName){ //funçao para contar caracteres passando arquivo como parametro
-    FILE *file = fopen("teste.txt", "rb"); //abre arquivo somente para leitura
+    FILE *file = fopen(fileName, "rb"); //abre arquivo somente para leitura
     int aux; //auxiliar para guardar o caractere
-    if(fileName == NULL) printf("Empty!\n"); //checka se o arquivo está vazio
+    if(file == NULL) printf("Empty!\n"); //checka se o arquivo está vazio
     else{
         while((aux=fgetc(file))){ //percorre os caracteres do arquivo
             if(aux == EOF) break; //encerrar caso o arquivo esteja no fim
