@@ -1,6 +1,10 @@
+//
+// Created by alvino on 03/10/16.
+//
+#ifndef PRIORITY_QUEUE_C
+#define PRIORITY_QUEUE_C
+
 #include "priorityQueue.h"
-#include <stdlib.h>
-#include "stringList.h"
 
 Node* createPriorityQueue(){ //cria a fila de prioridade
     return NULL;
@@ -68,9 +72,5 @@ Node *insertTreeNode(Node *node, Node *queueNode){    //	queue = insertTreeNode(
     }
 }
 
-
-
-//
-// Created by alvino on 03/10/16.
-//
+#endif// PRIORITY_QUEUE_C
 
