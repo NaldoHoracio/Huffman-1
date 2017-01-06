@@ -1,10 +1,10 @@
 //
 // Created by edvonaldoh on 17/10/16.
 //
-#include "helpful_function.h"
-#include "helpful_function.c"
-#include "stringList.h"
-#include "stringList.c"
+#ifndef SIZE_HASH_SIZE_TREE_C
+#define SIZE_HASH_SIZE_TREE_C
+
+#include "size_hash_size_tree.h"
 
 Node_String* size_tree_size_trash(FILE *p_file)
 {
@@ -63,14 +63,14 @@ Node_String* size_tree_size_trash(FILE *p_file)
 
     for( i = 0; i < 8; i++)// Loop para verificar bit a bit os bits do segundo byte
     {
-        if( is_bit_i_set(secund_byte_header, i))// Se o bit é 1 - setado - atribui 1
+        if( get_bit(secund_byte_header, i))// Se o bit é 1 - setado - atribui 1
             vector_of_size_tree[i] = 1;
         else
             vector_of_size_tree[i] = 0;// Se o bit é 0 - não setado - atribui 0;
     }
     for(i = 0; i < 5; i++)// Loop para verificar bit a bit os bits que interessam para o tamanho da árvore
     {
-        if( is_bit_i_set(first_byte_header, i))// Se o bit é 1 - está setado - atribui 1
+        if( get_bit(first_byte_header, i))// Se o bit é 1 - está setado - atribui 1
         {
             // Atribuição de 1 na posição i + 8, pois as anteriores já estão ocupadas com resultados da análise do segundo byte
             vector_of_size_tree[i + 8] = 1;
@@ -102,7 +102,7 @@ Node_String* size_tree_size_trash(FILE *p_file)
     int size_of_trash = 0;
     for(i = 0; i < 3; i++)// Loop para verificar se o bit da posição da posição i é UM ou ZERO
     {
-        if(is_bit_i_set(first_byte_header, i))// Verifica se o bit da posição i é 1
+        if(get_bit(first_byte_header, i))// Verifica se o bit da posição i é 1
         {
             vector_of_size_trash[i] = 1;// Atribui valor 1 se bit i está setado
         }else {
@@ -134,3 +134,5 @@ Node_String* size_tree_size_trash(FILE *p_file)
 
     free(size_file);// Libera espaço de memória depois do uso
 }
+
+#endif//SIZE_HASH_SIZE_TRASH_C
