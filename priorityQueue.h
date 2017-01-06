@@ -4,7 +4,8 @@
 
 #ifndef STRING_PRIORITYQUEUE_H
 #define STRING_PRIORITYQUEUE_H
-#pragma once
+
+#include <stdlib.h>
 #include "frequencyCounter.h"
 #include "stringList.h"
 
@@ -32,8 +33,5 @@ Node* insert(Node *node, unsigned char character, int frequency);
 
 /* Insere o nó com merge na PiorityQueue */
 Node *insertTreeNode(Node *queue, Node *queueNode);
-
-
-
 
 #endif //STRING_PRIORITYQUEUE_H
