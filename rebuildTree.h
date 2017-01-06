@@ -5,7 +5,14 @@
 #ifndef STRING_REBUILDTREE_H
 #define STRING_REBUILDTREE_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "helpful.h"
+//#include "helpful.c"
+//#include "stringList.c"
 #include "stringList.h"
+#include "priorityQueue.h"
+//#include "priorityQueue.c"
 
 typedef struct Node Node;
 
