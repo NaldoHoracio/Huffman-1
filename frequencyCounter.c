@@ -1,12 +1,12 @@
 //
 // Created by alvino on 04/10/16.
 //
+#ifndef FREQUENCYCOUNTER_C
+#define FREQUENCYCOUNTER_C
 
 #include "frequencyCounter.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-int arrayFrequency[256];
+
+//int arrayFrequency[256];
 
 void counter(char *fileName){ //funçao para contar caracteres passando arquivo como parametro
     FILE *file = fopen(fileName, "rb"); //abre arquivo somente para leitura
@@ -30,3 +30,4 @@ void printFrequency(int array[256]){ //imprime a tabela com a frequencia dos car
     }
 }
 */
+#endif// FREQUENCYCOUNTER_C
