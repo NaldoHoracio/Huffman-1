@@ -4,10 +4,12 @@
 
 #ifndef STRING_MAPTREE_H
 #define STRING_MAPTREE_H
-#include "stringList.h"
+
+#include <stdio.h>
+#include "frequencyCounter.h"
 #include "priorityQueue.h"
 #include "hash_table.h"
-#include "frequencyCounter.h"
+#include "stringList.h"
 
 Node_String* maptreeRepresetantion(Node* current, Node_String* representree, Node_String* binary_value, Hashtable *hashtree);
 
