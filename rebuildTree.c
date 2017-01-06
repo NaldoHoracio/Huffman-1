@@ -1,17 +1,10 @@
 //
 // Created by alvino on 18/10/16.
 //
-#pragma once
-#include <stdio.h>
-#include <stdlib.h>
-#include "rebuildTree.h"
-#include "stringList.c"
-#include "stringList.h"
-#include "priorityQueue.h"
-#include "priorityQueue.c"
-#include "helpful.h"
-#include "helpful.c"
+#ifndef REBUILDTREE_C
+#define REBUILDTREE_C
 
+#include "rebuildTree.h"
 
 // Criando novo nó da árvore e inserindo até formar a árvore
 Node* create_node_rebuild_tree(char n_character, Node *p_left, Node *p_right)
@@ -65,3 +58,4 @@ int main()
 }
  */
 
+#endif// REBUILD_TREE_C
