@@ -1,11 +1,18 @@
 //
 // Created by alvino on 04/10/16.
 //
+/*
+ * ifndef, define, include - evitar problemas em arquivos incluídos mais de uma vez
+ */
 
-#ifndef STRING_HASH_TABLE_H
-#define STRING_HASH_TABLE_H
+#ifndef HASH_TABLE_H
+#define HASH_TABLE_H
 
+#include<stdio.h>
+#include<stdlib.h>
 #include "stringList.h"
+
+#define SIZE_HASH 256
 
 typedef struct element Element;
 
@@ -29,4 +36,4 @@ int contains_key(Hashtable *ht, char key);
 
 void print_hash_table(Hashtable *ht);
 
-#endif //STRING_HASH_TABLE_H
+#endif //HASH_TABLE_H
