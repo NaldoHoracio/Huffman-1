@@ -1,6 +1,8 @@
 //
 // Created by pablo on 16/10/16.
 //
+#ifndef HELPFUL_C
+#define HELPFUL_C
 
 #include "helpful.h"
 
@@ -49,3 +51,5 @@ Node* merge(Node* queue){ // funçao de merge nos nós da lista
 
     return queue;
 }
+
+#endif// HELPFUL_C
