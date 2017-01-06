@@ -1,12 +1,14 @@
-
 //
 // Created by alvino on 01/10/16.
 //
 
-#ifndef STRING_STRINGLIST_H
-#define STRING_STRINGLIST_H
+#ifndef STRING_LIST_H
+#define STRING_LIST_H
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
 
-typedef struct node_string Node_String; // define um nó
+typedef struct node_string Node_String;// define um nó
 
 struct node_string  // define um nó
 {
@@ -40,4 +42,4 @@ Node_String* pop (Node_String* first);
 
 Node_String* decToBin(int num, Node_String* str, int idx);
 
-#endif //STRING_STRINGLIST_H
+#endif //STRING_LIST_H
