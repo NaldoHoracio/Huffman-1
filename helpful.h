@@ -4,7 +4,7 @@
 
 #ifndef STRING_HELPFUL_H
 #define STRING_HELPFUL_H
-#pragma once
+
 #include "priorityQueue.h"
 
 /*criando uma arvore vazia */
