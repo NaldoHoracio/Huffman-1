@@ -4,10 +4,12 @@
 
 #ifndef STRING_FREQUENCYCOUNTER_H
 #define STRING_FREQUENCYCOUNTER_H
-//#pragma once
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-
+int arrayFrequency[256];
 //extern int arrayFrequency[256]; //variavel global para todos os arquivos que referenciam o array
 //guarda o valor da frequencia
 void counter(char *fileName);   //funçao para contar caracteres
