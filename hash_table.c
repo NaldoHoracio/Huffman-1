@@ -1,9 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include "hash_table.h"
-#include "stringList.h"
+#ifndef HASH_TABLE_C
+#define HASH_TABLE_C
 
-#define SIZE_HASH 256
+#include "hash_table.h"
 
 struct element
 {
@@ -154,3 +152,5 @@ int main()
 // Created by alvino on 04/10/16.
 //
 */
+
+#endif// HASH_TABLE_C
